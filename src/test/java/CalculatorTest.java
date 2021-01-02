@@ -1,11 +1,13 @@
 import domain.Calculator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 @DisplayName("Calculator Test")
 public class CalculatorTest {
+
 
     @ParameterizedTest
     @CsvSource({"{1, 2}, {'+'}, 3",
@@ -27,8 +29,16 @@ public class CalculatorTest {
         Assertions.assertEquals(answer, expected);
     }
 
-
-
-
-
+    @Test
+    @ParameterizedTest
+    @CsvSource({"{1, 2, 4, 0}, {'+', '-', '/'}"})
+    void divideByZeroTest(int[] numbers, String[] operators) {
+        boolean isError = false;
+        try{
+            Calculator.apply(numbers, operators);
+        } catch(Exception e) {
+            isError = true;
+        }
+        Assertions.assertEquals(isError, true);
+    }
 }
