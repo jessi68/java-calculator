@@ -22,4 +22,13 @@ public class ParserTest {
         int [] expected = parser.parseInteger(input);
         Assertions. assertArrayEquals(expected, answer);
     }
+
+    @ParameterizedTest
+    @CsvSource({" '1 + 2 * 3 - 5',{ '+', '*', '-' }", " '2 - 4 + 6', {'-', '+'}"})
+    void splitWithSeveralIntegersTest(String input, String [] answer) {
+        String [] expected = parser.parseOperator(input);
+        Assertions. assertArrayEquals(expected, answer);
+    }
+
+
 }
