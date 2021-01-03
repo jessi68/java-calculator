@@ -3,8 +3,8 @@ package domain;
 import java.util.Arrays;
 
 public class Parser {
-    private static final String OPERATOR_DELIMITER = "\\+|\\-|\\/|\\*";
-    private static final String NUMBER_DELIMITER = "\\\\d+";
+    private static final String OPERATOR_DELIMITER = "\\+|-|/|\\*";
+    private static final String NUMBER_DELIMITER = "\\d+";
 
     public Parser() {
 
@@ -17,7 +17,7 @@ public class Parser {
     }
 
     public String [] parseOperators(String request) {
-        return (String[]) (Arrays.stream(request.split(NUMBER_DELIMITER)))
-                                 .toArray();
+        return (Arrays.stream(request.substring(1).split(NUMBER_DELIMITER)))
+                                 .toArray(String[]::new);
     }
 }
