@@ -7,44 +7,15 @@ import java.util.function.BiFunction;
 import java.util.stream.Stream;
 
 public class Calculator {
-    public enum Operator {
-        PLUS("+") {
-            public int apply(int x, int y) {return x + y;}
-        },
-        MINUS("-") {
-            public int apply(int x, int y) {return x - y;}
-        },
-        DIVIDE("/") {
-            public int apply(int x, int y) {return x / y;}
-        },
-        MULTIPLY("*") {
-            public int apply(int x, int y) {return x * y;}
-        };
 
-        private String mark;
-
-        Operator(String mark) {
-            this.mark = mark;
-        }
-
-        @Override public String toString() { return this.mark; }
-
-        public static Operator fromMark(String mark) {
-            return Arrays.stream(values())
-                         .findFirst()
-                         .filter(operator -> operator.mark.equals(mark))
-                         .get();
-        }
-
-        public abstract int apply(int x, int y);
-    }
-
-
-    public static int apply(List<Integer> numbers, List<Operator> operators) {
+    public static int apply(Formula formula) {
         int first, second, result;
+        List<Operator> operators = new ArrayList<>(formula.getOperators());
+        List<Integer> numbers = new ArrayList<>(formula.getNumbers());
+
         for(Operator operator: operators) {
             first = numbers.remove(0);
-            second = numbers.remove(1);
+            second = numbers.remove(0);
             result = operator.apply(first, second);
             numbers.add(0, result);
         }
